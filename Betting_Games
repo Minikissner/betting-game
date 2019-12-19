@@ -1,0 +1,132 @@
+import random
+
+money = 100
+
+
+# Write your game of chance functions here
+
+def coin_flip(guess, bet):
+    print ("Let's flip a coin!")
+    if bet <= 0:
+        print ("Your bet should be above 0")
+        return 0
+    if bet > money:
+        print ("You cannot bet more than you currently have.")
+        return 0
+    print ("You have bet " + str(bet) + " on " + guess + ".")
+    result = random.randint(1, 2)
+    if result == 1:
+        print ("The result is heads!")
+    if result == 2:
+        print ("The result is tails!")
+    if (guess == "heads" and result == 1) or (guess == "tails" and result == 2):
+        print ("You won " + str(bet) + " dollars!")
+        print()
+        return bet
+    else:
+        print ("You lost " + str(bet) + " dollars.")
+        print()
+        return -bet
+
+
+def cho_han(guess, bet):
+    print ("Let's play Cho-Han!")
+    if bet <= 0:
+        print ("Your bet should be above 0")
+        return 0
+    if bet > money:
+        print ("You cannot bet more than you currently have.")
+        return 0
+    print ("You have bet " + str(bet) + " on " + guess)
+    result1 = random.randint(1, 6)
+    result2 = random.randint(1, 6)
+    total = result1 + result2
+    if total % 2 == 0:
+        print ("The result is even.")
+    if total % 2 == 1:
+        print ("The result is odd.")
+    if (guess == "odd" and total % 2 == 1) or (guess == "even" and total % 2 == 0):
+        print ("You have won " + str(bet) + " dollars!")
+        print()
+        return bet
+    else:
+        print ("You have lost " + str(bet) + " dollars.")
+        print()
+        return -bet
+
+
+def high_card(bet):
+    print ("Let's play high card!")
+    if bet <= 0:
+        print ("Your bet should be above 0.")
+        return money
+    if bet > money:
+        print ("You cannot bet more than you currently have.")
+        return 0
+    print ("You have bet " + str(bet) + " dollars.")
+    your_pick = random.randint(1, 52)
+    other_pick = random.randint(1, 52)
+    print ("You have chosen " + str(your_pick) + ".")
+    print ("Your opponent has chosen " + str(other_pick) + ".")
+    if your_pick > other_pick:
+        print ("Your card is higher! You win " + str(bet) + " dollars!")
+        print()
+        return bet
+    if your_pick < other_pick:
+        print ("Your card is lower. You lost " + str(bet) + " dollars.")
+        print ()
+        return -bet
+    if your_pick == other_pick:
+        print ("It's a tie! You get your bet back.")
+        print()
+        return 0
+
+
+def roulette(choice, bet):
+    print ("Let's play roulette!")
+    if bet <= 0:
+        print ("Your bet should be above 0.")
+        return 0
+    if bet > money:
+        print ("You cannot bet more than you currently have.")
+        return 0
+    print ("You have bet " + str(bet) + " dollars on " + str(choice) + ".")
+    space = random.randint(0, 37)
+    if space == 37:
+        print ("The ball has landed in space 00!")
+    else:
+        print ("The ball has landed in space " + str(space) + "!")
+    if space == 0 or space == 37:
+        print ("This is a house space. Sorry, you have lost " + str(bet) + " dollars.")
+        return -bet
+    if space % 2 == 0:
+        print ("This is an even space.")
+    if space % 2 == 1:
+        print ("This is an odd space.")
+    if (choice == "even" and space % 2 == 0) or (choice == "odd" and space % 2 == 1):
+        print ("Congratulaions! You have won " + str(bet) + " dollars!")
+        return bet
+    elif (choice == "odd" and space % 2 == 0) or (choice == "even" and space % 2 == 1):
+        print ("Sorry, you have lost " + str(bet) + " dollars.")
+        return bet
+    elif choice == space:
+        print ("Congratulations, you have won " + str(bet * 35) + " dollars!")
+        return bet * 35
+    elif choice != space:
+        print ("Sorry, you have lost " + str(bet) + " dollars.")
+        return -bet
+
+
+# Here is where you play the games!
+
+# Type in heads or tails, then a number between 1 and 100
+money += coin_flip("tails", 10)
+# For Cho-Han, plug in either even or odd, and then a number between 1 and 100
+money += cho_han("even", 10)
+# For high card, plug in your bet: between 1 and 100
+money += high_card(57)
+# For roulette, forst plug in your choice. This can be "odd", "even", or a number between 1 and 36
+money += roulette("odd", 10)
+print()
+
+print("Your total amount of money is " + str(money) + ".")
